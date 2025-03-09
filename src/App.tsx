@@ -16,6 +16,15 @@ const App: React.FC = () => {
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
+  const editTask = (id: number, newText: string) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, text: newText } : task
+      )
+    );
+  };
+  
+
   const toggleTaskCompletion = (id: number) => {
     setTasks(
       tasks.map((task) =>
