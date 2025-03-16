@@ -7,23 +7,14 @@ import TaskForm from "./components/TaskForm";
 const App: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>(testTasks);
 
-  const addTask = (text: string) => {
-    const newTask: Task = { id: Date.now(), text, completed: false };
+  const addTask = (text: string, cost: number) => {
+    const newTask: Task = { id: Date.now(), text, completed: false, cost };
     setTasks([...tasks, newTask]);
   };
 
   const deleteTask = (id: number) => {
     setTasks(tasks.filter((task) => task.id !== id));
   };
-
-  const editTask = (id: number, newText: string) => {
-    setTasks(
-      tasks.map((task) =>
-        task.id === id ? { ...task, text: newText } : task
-      )
-    );
-  };
-  
 
   const toggleTaskCompletion = (id: number) => {
     setTasks(
@@ -33,14 +24,26 @@ const App: React.FC = () => {
     );
   };
 
+  const editTask = (id: number, newText: string) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, text: newText } : task
+      )
+    );
+  };
+
   return (
     <div className="container">
       <Header />
       <TaskForm addTask={addTask} />
-      <TaskList tasks={tasks} deleteTask={deleteTask} toggleTask={toggleTaskCompletion} />
+      <TaskList
+        tasks={tasks}
+        deleteTask={deleteTask}
+        toggleTask={toggleTaskCompletion}
+        editTask={editTask}
+      />
     </div>
   );
 };
 
 export default App;
-//impoprts and makes app work
